@@ -1,7 +1,6 @@
 import socket
 import threading
 
-
 # Function to initialize the server by creating a socket, binding to the address and port, and listening for connections
 def initialize_server(address, port):
     # Create a socket object using IPv4 addressing (AF_INET) and TCP protocol (SOCK_STREAM)
@@ -22,7 +21,6 @@ def initialize_server(address, port):
     # Start accepting clients by calling accept_clients function
     accept_clients(server_socket, clients_list)
 
-
 # Function to accept incoming client connections
 def accept_clients(server_socket, clients_list):
     while True:
@@ -35,13 +33,11 @@ def accept_clients(server_socket, clients_list):
         # Start a new thread for the client to listen for messages
         client_thread(client, clients_list)
 
-
 # Function to create and start a new thread that listens for a client's messages
 def client_thread(client, clients_list):
     # Create a new thread and start it, passing the listening function with the client and the clients list as arguments
     client_threading = threading.Thread(target=thread_listening, args=(client, clients_list))
     client_threading.start()
-
 
 # Function that listens for messages from the client in its own thread
 def thread_listening(client, clients_list):
@@ -61,7 +57,6 @@ def thread_listening(client, clients_list):
             clients_list.remove(client)
             client.close()
 
-
 # Function to broadcast the received message to all connected clients
 def broadcast(message, clients_list):
     for client in clients_list:
@@ -74,13 +69,11 @@ def broadcast(message, clients_list):
             clients_list.remove(client)
             client.close()
 
-
 # Main function that sets up the server by specifying the address and port
 def main():
     my_port = 7000  # Port on which the server will listen for incoming connections
     my_address = "192.168.1.4"  # IP address where the server will run
     initialize_server(my_address, my_port)
-
 
 # Entry point of the script. If the script is run directly, the main function will be executed
 if __name__ == "__main__":
